@@ -20,19 +20,24 @@ app.post('/check', async (req, res) => {
       const html = await response.text();
       const lowerHtml = html.toLowerCase();
 
-      const isPrivate = lowerHtml.includes('this playlist is private') ||
-                        lowerHtml.includes('you need permission') ||
-                        lowerHtml.includes('access denied') ||
-                        lowerHtml.includes('sign in to continue') ||
-                        lowerHtml.includes('this video is private') ||
-                        lowerHtml.includes('video unavailable') ||
-                        lowerHtml.includes('this content is not available') ||
-                        lowerHtml.includes('you need access') ||
-                        lowerHtml.includes('this item has been made private') ||
-                        lowerHtml.includes('file not found') ||
-                        (lowerHtml.includes('private') && lowerHtml.includes('video')) ||
-                        (lowerHtml.includes('private') && lowerHtml.includes('playlist')) ||
-                        (lowerHtml.includes('private') && lowerHtml.includes('file'));
+      let isPrivate = !response.ok; // If not 200, assume private
+
+      if (!isPrivate) {
+        // Additional checks for error messages in HTML
+        isPrivate = lowerHtml.includes('this playlist is private') ||
+                    lowerHtml.includes('you need permission') ||
+                    lowerHtml.includes('access denied') ||
+                    lowerHtml.includes('sign in to continue') ||
+                    lowerHtml.includes('this video is private') ||
+                    lowerHtml.includes('video unavailable') ||
+                    lowerHtml.includes('this content is not available') ||
+                    lowerHtml.includes('you need access') ||
+                    lowerHtml.includes('this item has been made private') ||
+                    lowerHtml.includes('file not found') ||
+                    (lowerHtml.includes('private') && lowerHtml.includes('video')) ||
+                    (lowerHtml.includes('private') && lowerHtml.includes('playlist')) ||
+                    (lowerHtml.includes('private') && lowerHtml.includes('file'));
+      }
 
       results.push({ link, accessible: !isPrivate });
     } catch (error) {

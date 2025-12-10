@@ -17,11 +17,17 @@ document.getElementById('checkBtn').addEventListener('click', async () => {
         if (failedLinks.length === 0) {
             resultsDiv.innerHTML = '<div class="success-message">✓ All links are accessible!</div>';
         } else {
-            resultsDiv.innerHTML = `<h3>Failed Links (${failedLinks.length}):</h3>`;
+            resultsDiv.innerHTML = `<h3>These Links need fixing (${failedLinks.length}):</h3>`;
             failedLinks.forEach(result => {
                 const resultDiv = document.createElement('div');
                 resultDiv.className = 'result error';
-                resultDiv.innerHTML = `<span class="icon">✗</span>${result.link}`;
+                let tip = '';
+                if (result.link.includes('youtube.com')) {
+                    tip = '<br><small>Tip: Set your YouTube playlist/video to "Unlisted" or "Public" (not "Private") in the visibility settings.</small>';
+                } else if (result.link.includes('drive.google.com')) {
+                    tip = '<br><small>Tip: In Google Drive, click "Share" and set to "Anyone with the link" can view.</small>';
+                }
+                resultDiv.innerHTML = `<span class="icon">✗</span>${result.link}${tip}`;
                 resultsDiv.appendChild(resultDiv);
             });
         }
