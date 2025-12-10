@@ -22,16 +22,17 @@ document.getElementById('checkBtn').addEventListener('click', async () => {
 
 async function checkLink(link) {
     try {
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(link)}`;
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(link)}`;
         const res = await fetch(proxyUrl);
-        const data = await res.json();
-        const html = data.contents.toLowerCase();
+        const html = await res.text();
+        const lowerHtml = html.toLowerCase();
 
         // Check for private/error indicators
-        const isPrivate = html.includes('this playlist is private') ||
-                          html.includes('you need permission') ||
-                          html.includes('access denied') ||
-                          html.includes('sign in to continue');
+        const isPrivate = lowerHtml.includes('this playlist is private') ||
+                          lowerHtml.includes('you need permission') ||
+                          lowerHtml.includes('access denied') ||
+                          lowerHtml.includes('sign in to continue') ||
+                          lowerHtml.includes('this video is private');
 
         return !isPrivate;
     } catch (error) {
