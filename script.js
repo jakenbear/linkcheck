@@ -1,22 +1,32 @@
 document.getElementById('checkBtn').addEventListener('click', async () => {
     const links = document.getElementById('links').value.split('\n').map(l => l.trim()).filter(l => l);
     const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = '';
+    resultsDiv.innerHTML = '<p>Checking links...</p>';
+
+    let failedLinks = [];
 
     for (const link of links) {
-        const resultDiv = document.createElement('div');
-        resultDiv.className = 'result';
-        resultDiv.textContent = `Checking ${link}...`;
-        resultsDiv.appendChild(resultDiv);
-
         try {
             const accessible = await checkLink(link);
-            resultDiv.className = accessible ? 'result success' : 'result error';
-            resultDiv.innerHTML = `<span class="icon">${accessible ? '✓' : '✗'}</span>${link}`;
+            if (!accessible) {
+                failedLinks.push(link);
+            }
         } catch (error) {
-            resultDiv.className = 'result error';
-            resultDiv.innerHTML = `<span class="icon">✗</span>${link} - Error: ${error.message}`;
+            failedLinks.push(`${link} - Error: ${error.message}`);
         }
+    }
+
+    resultsDiv.innerHTML = '';
+    if (failedLinks.length === 0) {
+        resultsDiv.innerHTML = '<div class="success-message">✓ All links are accessible!</div>';
+    } else {
+        resultsDiv.innerHTML = `<h3>Failed Links (${failedLinks.length}):</h3>`;
+        failedLinks.forEach(link => {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result error';
+            resultDiv.innerHTML = `<span class="icon">✗</span>${link}`;
+            resultsDiv.appendChild(resultDiv);
+        });
     }
 });
 
