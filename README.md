@@ -1,6 +1,6 @@
 # Link Accessibility Checker
 
-A simple static web app to check if links (e.g., Google Drive files or YouTube playlists) are accessible (unlisted or public) by fetching their content.
+A simple static web app to check if links (e.g., Google Drive files or YouTube videos/playlists) are accessible (unlisted or public) by fetching their content.
 
 ## Features
 

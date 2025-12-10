@@ -45,8 +45,12 @@ async function checkLink(link) {
                           lowerHtml.includes('this video is private') ||
                           lowerHtml.includes('video unavailable') ||
                           lowerHtml.includes('this content is not available') ||
+                          lowerHtml.includes('you need access') ||
+                          lowerHtml.includes('this item has been made private') ||
+                          lowerHtml.includes('file not found') ||
                           (lowerHtml.includes('private') && lowerHtml.includes('video')) ||
-                          (lowerHtml.includes('private') && lowerHtml.includes('playlist'));
+                          (lowerHtml.includes('private') && lowerHtml.includes('playlist')) ||
+                          (lowerHtml.includes('private') && lowerHtml.includes('file'));
 
         return !isPrivate;
     } catch (error) {
