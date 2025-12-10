@@ -18,11 +18,13 @@ A simple static web app to check if links (e.g., Google Drive files or YouTube v
 
 1. Push this repo to GitHub.
 2. Go to [Render](https://render.com/)
-3. Create a new Static Site
+3. Create a new **Web Service** (not Static Site)
 4. Connect your GitHub repo
-5. Set build command to (leave blank for static)
-6. Publish directory: . (root)
+5. Set build command: `npm install`
+6. Start command: `npm start`
 7. Deploy
+
+The app will be available at your Render URL, serving the static frontend and handling checks server-side.
 
 ## Usage
 
