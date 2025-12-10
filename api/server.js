@@ -38,10 +38,7 @@ app.post('/check', async (req, res) => {
                     lowerHtml.includes('this content is not available') ||
                     lowerHtml.includes('you need access') ||
                     lowerHtml.includes('this item has been made private') ||
-                    lowerHtml.includes('file not found') ||
-                    (lowerHtml.includes('private') && lowerHtml.includes('video')) ||
-                    (lowerHtml.includes('private') && lowerHtml.includes('playlist')) ||
-                    (lowerHtml.includes('private') && lowerHtml.includes('file'));
+                    lowerHtml.includes('file not found');
       }
 
       results.push({ link, accessible: !isPrivate });
