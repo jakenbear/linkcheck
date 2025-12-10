@@ -1,23 +1,18 @@
 # Link Accessibility Checker
 
-A simple static web app to check if Google Drive files or YouTube playlists are accessible (unlisted or public).
+A simple static web app to check if links (e.g., Google Drive files or YouTube playlists) are accessible (unlisted or public) by fetching their content.
 
 ## Features
 
 - Paste multiple links (one per line)
 - Visual feedback: Green check (✓) for accessible, Red X (✗) for not
 - Minimal and stylized UI
+- No API keys required—uses a public CORS proxy to check link responses
 
 ## Setup
 
 1. Clone or download this repo.
-2. Get a Google API key:
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Create a new project or select existing
-   - Enable YouTube Data API v3 and Google Drive API
-   - Create credentials (API key)
-3. In `script.js`, replace `'YOUR_GOOGLE_API_KEY_HERE'` with your API key.
-4. Open `index.html` in a browser to test locally.
+2. Open `index.html` in a browser to test locally.
 
 ## Deployment on Render
 
@@ -35,4 +30,4 @@ A simple static web app to check if Google Drive files or YouTube playlists are 
 - Click "Check Links"
 - See results below
 
-Note: API key is exposed in client-side code. For production, consider server-side proxy for security.
+Note: Relies on a public CORS proxy (api.allorigins.win). For production, consider a custom proxy for reliability.
