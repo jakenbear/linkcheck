@@ -1,35 +1,55 @@
 # Link Accessibility Checker
 
-A simple static web app to check if links (e.g., Google Drive files or YouTube videos/playlists) are accessible (unlisted or public) by fetching their content.
+A simple web app to check if Google Drive files or YouTube videos/playlists are accessible (unlisted or public). Built with Node.js, Express, and deployed on Vercel for free.
+
+## Live Demo
+
+Try it out: [https://linkcheck-ddp.vercel.app/](https://linkcheck-ddp.vercel.app/)
 
 ## Features
 
 - Paste multiple links (one per line)
-- Visual feedback: Green check (✓) for accessible, Red X (✗) for not
-- Minimal and stylized UI
-- No API keys required—uses a public CORS proxy to check link responses
+- Visual feedback: Green check (✓) for accessible, Red X (✗) for inaccessible
+- Modern, responsive UI with glassmorphism styling
+- Server-side link checking to avoid CORS issues
+- No API keys required—fetches content directly
+- Sequential checking to be respectful to servers
 
-## Setup
+## How It Works
 
-1. Clone or download this repo.
-2. Open `index.html` in a browser to test locally.
+- Frontend: HTML/CSS/JS for UI and API calls
+- Backend: Node.js Express server that fetches each link with a browser User-Agent
+- Detection: Checks HTTP status and scans HTML for error messages (e.g., "this video is private")
+- Deployment: Serverless on Vercel
 
-## Deployment on Render
+## Local Setup
+
+1. Clone this repo: `git clone https://github.com/jakenbear/linkcheck.git`
+2. Install dependencies: `npm install`
+3. Run locally: `npm start` (serves on http://localhost:3000)
+4. Open `http://localhost:3000` in your browser
+
+## Deployment on Vercel
 
 1. Push this repo to GitHub.
-2. Go to [Render](https://render.com/)
-3. Create a new **Web Service** (not Static Site)
-4. Connect your GitHub repo
-5. Set build command: `npm install`
-6. Start command: `npm start`
-7. Deploy
+2. Go to [Vercel](https://vercel.com/)
+3. Import your GitHub repo
+4. Deploy (Vercel auto-detects the Node.js app)
 
-The app will be available at your Render URL, serving the static frontend and handling checks server-side.
+The app will be live at your Vercel URL.
 
 ## Usage
 
-- Paste links in the textarea
+- Paste links in the textarea (e.g., `https://drive.google.com/file/d/...` or `https://youtube.com/playlist?list=...`)
 - Click "Check Links"
-- See results below
+- View results: Accessible links show green checks; inaccessible ones show red X's with tips
 
-Note: Relies on a public CORS proxy (api.allorigins.win). For production, consider a custom proxy for reliability.
+## Limitations
+
+- Relies on HTML scraping, so accuracy depends on platform error messages
+- May be rate-limited by YouTube/Google if abused
+- For private content, assumes 200 status with error text in HTML
+
+## Contributing
+
+Feel free to open issues or PRs for improvements!
