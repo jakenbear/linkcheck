@@ -48,6 +48,12 @@ app.post('/check', async (req, res) => {
   res.json(results);
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// For Vercel serverless, export the app instead of listening
+module.exports = app;
+
+// For local testing
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
