@@ -42,7 +42,11 @@ async function checkLink(link) {
                           lowerHtml.includes('you need permission') ||
                           lowerHtml.includes('access denied') ||
                           lowerHtml.includes('sign in to continue') ||
-                          lowerHtml.includes('this video is private');
+                          lowerHtml.includes('this video is private') ||
+                          lowerHtml.includes('video unavailable') ||
+                          lowerHtml.includes('this content is not available') ||
+                          (lowerHtml.includes('private') && lowerHtml.includes('video')) ||
+                          (lowerHtml.includes('private') && lowerHtml.includes('playlist'));
 
         return !isPrivate;
     } catch (error) {
